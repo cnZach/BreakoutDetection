@@ -1,14 +1,16 @@
-breakout = function(Z, min.size = 30, method = 'amoc', ...){
+breakout = function(jsonString, min.size = 30, method = 'amoc', ...){
 
 	#function used to scale observations to the interval [0,1]
 	f = function(x) (x-min(x))/(max(x)-min(x))
+	# convert from json string to data frame first
+	Z <- jsonlite::fromJSON(jsonString)
 	
 	if(class(Z)%in%c('numeric','integer') || ncol(Z) == 1)
 		Zcounts = f(Z)
-	else if(!('timestamp'%in%names(Z) && 'count'%in%names(Z)))
-		stop("The supplied data must either be a vector, or a data.frame which has columns named 'timestamp' and 'count'.")
+	else if(!('t'%in%names(Z) && 'v'%in%names(Z)))
+		stop("The supplied data must either be a vector, or a data.frame which has columns named 't' and 'v'.")
 	else
-		Zcounts = f(Z$count)
+		Zcounts = f(Z$v)
 	
 	#capture additional passed arguments
 	argList = list(...)
