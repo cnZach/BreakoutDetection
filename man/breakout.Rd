@@ -12,7 +12,7 @@
 
 \arguments{
 	\item{Z}{
-		The input time series. This is either a numeric vector or a data.frame which has 'timestamp' and 'count' components.
+		The input time series. This is either a numeric vector or a data.frame which has 't' for timestamp, and 'v' for count components.
 	}
 	\item{min.size}{
 		The minimum number of observations between change points.
