@@ -4,17 +4,23 @@ breakout = function(jsonString, min.size = 30, method = 'amoc', ...){
 	f = function(x) (x-min(x))/(max(x)-min(x))
 	# convert from json string to data frame first
 	Z <- jsonlite::fromJSON(jsonString)
-	
+
 	if(class(Z)%in%c('numeric','integer') || ncol(Z) == 1)
 		Zcounts = f(Z)
-	else if(!('t'%in%names(Z) && 'v'%in%names(Z)))
-		stop("The supplied data must either be a vector, or a data.frame which has columns named 't' and 'v'.")
-	else
-		Zcounts = f(Z$v)
-	
+	else if(ncol(Z) != 2 || !is.numeric(x[[Z]])) {
+          stop("data must be a 2 column json string, with the first column being a set of timestamps, and the second coloumn being numeric values.")
+        }
+	#else if(!('t'%in%names(Z) && 'v'%in%names(Z)))
+	#	stop("The supplied data must either be a vector, or a data.frame which has columns named 't' and 'v'.")
+	else {
+	    # Rename data frame columns if necessary
+		if (any((names(Z) == c("t", "v")) == FALSE)) {
+			colnames(Z) <- c("t", "v")
+		}
+        Zcounts = f(Z$v)
+	}
 	#capture additional passed arguments
 	argList = list(...)
-
 
 	#Argument checking
 	if(min.size < 2)
