@@ -17,7 +17,7 @@ breakout = function(jsonString, min.size = 30, method = 'amoc', ...){
 		if (any((names(Z) == c("timestamp", "count")) == FALSE)) {
 			colnames(Z) <- c("timestamp", "count")
 		}
-        Zcounts = f(Z$v)
+        Zcounts = f(Z$count)
 	}
 	#capture additional passed arguments
 	argList = list(...)
