@@ -11,11 +11,11 @@ breakout = function(jsonString, min.size = 30, method = 'amoc', ...){
           stop("data must be a 2 column json string, with the first column being a set of timestamps, and the second coloumn being numeric values.")
         }
 	#else if(!('t'%in%names(Z) && 'v'%in%names(Z)))
-	#	stop("The supplied data must either be a vector, or a data.frame which has columns named 't' and 'v'.")
+	#	stop("data must be a 2 column json string, with the first column being a set of timestamps, and the second coloumn being numeric values.")
 	else {
 	    # Rename data frame columns if necessary
-		if (any((names(Z) == c("t", "v")) == FALSE)) {
-			colnames(Z) <- c("t", "v")
+		if (any((names(Z) == c("timestamp", "count")) == FALSE)) {
+			colnames(Z) <- c("timestamp", "count")
 		}
         Zcounts = f(Z$v)
 	}
