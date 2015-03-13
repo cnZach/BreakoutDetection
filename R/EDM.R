@@ -7,7 +7,7 @@ breakout = function(jsonString, min.size = 30, method = 'amoc', ...){
 
 	if(class(Z)%in%c('numeric','integer') || ncol(Z) == 1)
 		Zcounts = f(Z)
-	else if(ncol(Z) != 2 || !is.numeric(x[[Z]])) {
+	else if(ncol(Z) != 2 || !is.numeric(Z[[2]])) {
           stop("data must be a 2 column json string, with the first column being a set of timestamps, and the second coloumn being numeric values.")
         }
 	#else if(!('t'%in%names(Z) && 'v'%in%names(Z)))
